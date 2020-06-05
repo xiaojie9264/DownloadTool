@@ -6,8 +6,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import cn.jie.yang.util.LogUtil;
+
 public class DownLoad {
 
+    private static LogUtil log = new LogUtil();
 
     List<Map<String, String>> urls; // 下载链接
     Integer count; // 下载总数
@@ -33,11 +36,11 @@ public class DownLoad {
         try {
             service.awaitTermination(2, TimeUnit.HOURS);
         } catch (InterruptedException e) {
-            System.err.println(e.getStackTrace().toString());
+            log.print(e.getStackTrace().toString());
         }
         long end = System.currentTimeMillis();
         double time = (end - start)/1000;
-        System.out.println(String.format("下载文件总数为： %d 个 ，成功下载： %d 个，失败：%d  个，耗时：%.2f  秒", count,successnu,faildnu,time));
+        log.print(String.format("下载文件总数为： %d 个 ，成功下载： %d 个，失败：%d  个，耗时：%.2f  秒", count,successnu,faildnu,time));
     }
     
     public synchronized static void setStatus(boolean b) {

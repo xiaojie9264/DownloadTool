@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 public class UrlUtil {
 
+    private static LogUtil log = new LogUtil();
+    
     private static final String BASE_URL = "https://image.baidu.com/search/flip";
     
     
@@ -79,14 +81,14 @@ public class UrlUtil {
      * @return 
      */
     private Integer calculationPage() {
-        System.out.println("计算页码.....");
+        log.print("计算页码.....");
         Integer page = 0;
         if (this.imgNum % 20 == 0) {
             page = this.imgNum / 20;
         }else {
             page = this.imgNum / 20 + 1;
         }
-        System.out.println(String.format("计算出页码有 %s 页", page));
+        log.print(String.format("计算出页码有 %s 页", page));
         return page;
     }
 

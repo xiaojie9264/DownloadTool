@@ -4,9 +4,10 @@ import java.io.File;
 import java.net.URL;
 
 import cn.jie.yang.img.ImgFilePath;
+import cn.jie.yang.util.LogUtil;
 
 public class DownloadThread implements Runnable {
-
+    private static LogUtil log = new LogUtil();
 
     private String url;
     private String file;
@@ -29,15 +30,15 @@ public class DownloadThread implements Runnable {
             if (file.exists()) {
                 file.delete();
             }
-            System.err.println(e.getStackTrace().toString());
+            log.print(e.getStackTrace().toString());
             end = System.currentTimeMillis();
             DownLoad.setStatus(false);
-            System.err.println(String.format("文件:%s 下载失败啦    %d", this.file, (end - start)));
+            log.print(String.format("文件:%s 下载失败啦    %d", this.file, (end - start)));
             return ;
         }
         DownLoad.setStatus(true);
         end = System.currentTimeMillis();
-        System.out.println(String.format("文件:%s 下载成功啦    %d ms", this.file, (end - start)));
+        log.print(String.format("文件:%s 下载成功啦    %d ms", this.file, (end - start)));
     }
 
 }

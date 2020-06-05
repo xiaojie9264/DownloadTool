@@ -12,12 +12,13 @@ import com.alibaba.fastjson.JSONArray;
 
 import cn.jie.yang.Image;
 import cn.jie.yang.internet.Connection;
+import cn.jie.yang.util.LogUtil;
 import cn.jie.yang.util.Regex;
 import cn.jie.yang.util.UrlUtil;
 
 public class ImgUrl {
 
-
+    private static LogUtil log = new LogUtil();
     private List<Image> imgUrls;
     private Integer imgNum;
     private UrlUtil urlUtil = null;
@@ -32,7 +33,7 @@ public class ImgUrl {
     }
 
     private void init() {
-        System.out.println("初始化所有URL。。。。。。");
+        log.print("初始化所有URL。。。。。。");
         this.urls = urlUtil.getUrls();
     }
 
@@ -83,15 +84,15 @@ public class ImgUrl {
         try {
             service.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
-            System.err.println(e.getStackTrace().toString());
+            log.print(e.getStackTrace().toString());
         }
 
-        System.out.println(String.format("临时列表中包含%d条数据", temp.getTemp().size()));
+        log.print(String.format("临时列表中包含%d条数据", temp.getTemp().size()));
         if (this.imgNum >= temp.getTemp().size()) {
             return temp.getTemp();
         }
         this.imgUrls = temp.getTemp().subList(0, this.imgNum);
-        System.out.println(String.format("截取数据%d条", this.imgUrls.size()));
+        log.print(String.format("截取数据%d条", this.imgUrls.size()));
         return this.imgUrls;
     }
 
